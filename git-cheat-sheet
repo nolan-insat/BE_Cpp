@@ -1,0 +1,7 @@
+git status           # Affiche l'état du dépôt
+git add fichier      # Ajoute un fichier à l'index (staging)
+git add .            # Ajoute tous les fichiers modifiés
+git commit -m "msg"  # Crée un commit avec message
+
+git pull             # Récupère les changements distants (et fusionne)
+git push             # Envoie vos commits vers le dépôt distant
