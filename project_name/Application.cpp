@@ -11,6 +11,17 @@
 
 #include <ESP8266WiFi.h>
 
+#define BUZZER_PIN D5
+// Notes standard (Hz)
+#define DO  523  
+#define RE  587  
+#define MI  659  
+#define FA  698  
+#define SOL  784  
+#define LA  880  
+#define SI  988  
+#define DO_AIGU  1047 
+
 rgb_lcd lcd;
 
 Application::Application()
@@ -32,9 +43,12 @@ void Application::init(void)
   
   WiFi.begin("moi", "Nolan31*");
 
-  Wire.begin(D2, D1); // <-- IMPORTANT !
+  Wire.begin(D2, D1);
   delay(100);
   
+  pinMode(BUZZER_PIN, OUTPUT);
+  digitalWrite(BUZZER_PIN, LOW);
+
   lcd.begin(16, 2);
   lcd.setRGB(255, 0, 255);
   lcd.clear();
@@ -45,6 +59,16 @@ void Application::init(void)
     lcd.print(".");
   }
   lcd.clear();
+
+  // Mélodie Connexion réussie
+  tone(BUZZER_PIN, DO, 150); 
+  delay(200);
+  tone(BUZZER_PIN, MI, 150); 
+  delay(200);
+  tone(BUZZER_PIN, SOL, 150); 
+  delay(400);
+  tone(BUZZER_PIN, DO_AIGU, 300); 
+  delay(400);
   lcd.println("\nConnecte!");
   delay(2000);
   lcd.clear();
@@ -59,6 +83,15 @@ void Application::init(void)
   lcd.clear();
 
   WiFi.disconnect();
+  tone(BUZZER_PIN, DO_AIGU, 80); 
+  delay(200); 
+  tone(BUZZER_PIN, SOL, 80); 
+  delay(200);   
+  tone(BUZZER_PIN, MI, 80); 
+  delay(100);   
+  tone(BUZZER_PIN, DO, 250); 
+  delay(300); 
+  noTone(BUZZER_PIN);
   lcd.println("WiFi deconnecte");
   delay(100);
 
