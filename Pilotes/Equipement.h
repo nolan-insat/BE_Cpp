@@ -5,7 +5,7 @@
 
 using namespace std;
 
-class Equipement{
+class Equipement {
 
 protected :
     string nom;
@@ -18,6 +18,7 @@ public :
 
     virtual void init() = 0;
     virtual void desactiver() = 0;
+    virtual void activer() = 0;
 
     //Getteurs
     virtual string getNom() = 0;
@@ -27,7 +28,6 @@ public :
     //Setteurs
     virtual void setNom(string name) = 0;
     virtual void setBroche(int pin) = 0;
-    virtual void activer() = 0;
 
 };
 
