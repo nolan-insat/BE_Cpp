@@ -4,12 +4,11 @@
  * @brief Fichier source de l'application
  *********************************************************************/
 #include "Application.h"
-
+#include "Arduino.h"
 #include "Equipement.h"
 #include "Actionneur.h"
 #include "Led.h"
 
-#define D5 14
 
 /*
 #include <SoftwareSerial.h>
@@ -48,6 +47,8 @@ void Application::init(void)
 {
   Led led1(D5, "Led integrée");
   led1.init();
+  led1.activer();
+  led1.clignote(500, 3);
   led1.allumer();
   delay(1000);
   led1.eteindre();

@@ -1,7 +1,7 @@
 #ifndef LED_H_
 #define LED_H_
 
-// #include <Arduino.h>
+#include <Arduino.h>
 #include <string>
 #include "Actionneur.h"
 
@@ -17,11 +17,14 @@ class Led : public Actionneur {
 
         int getNbLeds();
 
-        virtual void init();
+        void init();
+        void activer();
+        void desactiver();
 
         void allumer();
         void eteindre();
-        void clignote();
+        void toggle();
+        void clignote(int duree, int repetitions);
 };
 
 #endif

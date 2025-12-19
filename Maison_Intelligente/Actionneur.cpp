@@ -1,5 +1,7 @@
 #include "Actionneur.h"
 
+int Actionneur::nbActionneurs = 0;
+
 Actionneur::Actionneur(int pin) : Equipement(pin) {
     nbActionneurs++;
 } 

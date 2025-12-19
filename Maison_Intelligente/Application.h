@@ -6,6 +6,11 @@
 #ifndef APPLICATION_H_
 #define APPLICATION_H_
 
+#include <Arduino.h>
+#include "Led.h"
+#include "Equipement.h"
+#include "Actionneur.h"
+
 /**
   * @class Application
   * @brief Classe Application 

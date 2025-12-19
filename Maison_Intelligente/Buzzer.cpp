@@ -5,7 +5,7 @@ Buzzer::Buzzer(int pin) : Actionneur(pin){}
 Buzzer::Buzzer(int pin, string name) : Actionneur(pin, name){}
 
 Buzzer::~Buzzer(){desactiverBuzzer();}
-
+/*
 void Buzzer::initBuzzer();
     void desactiverBuzzer();
     void activerBuzzer();
@@ -19,3 +19,5 @@ void Buzzer::initBuzzer();
 
     void setFrequence(int freq);
     void setDuree(int duree);
+    */
+    
