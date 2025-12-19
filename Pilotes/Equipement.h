@@ -14,6 +14,7 @@ protected :
 
 public :
     Equipement(int pin);
+    Equipement(int pin, string name);
     ~Equipement();
 
     virtual void init() = 0;
