@@ -4,12 +4,32 @@
 #include <iostream>
 #include "Actionneur.h"
 
+
 class Buzzer : public Actionneur{
 
-public :
-    Buzzer();
+protected : 
+    int frequence;
+    int duree;
 
-    void initBuzzer()
+public :
+    Buzzer(int pin);
+    Buzzer(int pin, string name);
+
+    ~Buzzer();
+
+    void initBuzzer();
+    void desactiverBuzzer();
+    void activerBuzzer();
+
+    void definirSon(int freq, int temps);
+    void jouerbip();
+    void jouerMelodie(int melodie[], int taille);
+
+    int getFrequence();
+    int getDuree();
+
+    void setFrequence(int freq);
+    void setDuree(int duree);
 };
 
 #endif
