@@ -1,7 +1,7 @@
 #include "Actionneur.h"
 
 Actionneur::Actionneur(int pin) : Equipement(pin) {} 
-Actionneur::Actionneur(int pin, string name) Equipement(pin, name) {}
+Actionneur::Actionneur(int pin, string name) : Equipement(pin, name) {}
 
 string Actionneur::getNom() {
     return this->nom;
