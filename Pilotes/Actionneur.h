@@ -10,7 +10,7 @@ class Actionneur : public Equipement {
 
     // Constructeur
     Actionneur(int pin) ;
-    Actionneur(int pin, string name);
+    Actionneur(int pin, string nom);
     // Destructeur
     ~Actionneur() ;
 
