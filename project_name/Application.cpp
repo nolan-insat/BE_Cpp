@@ -4,6 +4,14 @@
  * @brief Fichier source de l'application
  *********************************************************************/
 #include "Application.h"
+
+#include "Equipement.h"
+#include "Actionneur.h"
+#include "Led.h"
+
+#define D5 14
+
+/*
 #include <SoftwareSerial.h>
 
 #include <Wire.h>
@@ -23,7 +31,7 @@
 #define DO_AIGU  1047 
 
 rgb_lcd lcd;
-
+*/
 Application::Application()
 {
   Serial.begin(9600);
@@ -38,6 +46,12 @@ Application::~Application()
 
 void Application::init(void)
 {
+  Led led1(D5, "Led integrée");
+  led1.init();
+  led1.allumer();
+  delay(1000);
+  led1.eteindre();
+  /*
  Serial.begin(9600);
   delay(1000);
   
@@ -94,7 +108,7 @@ void Application::init(void)
   noTone(BUZZER_PIN);
   lcd.println("WiFi deconnecte");
   delay(100);
-
+  */
 }
 
 
