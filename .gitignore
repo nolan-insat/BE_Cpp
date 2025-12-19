@@ -32,3 +32,7 @@
 *.app
 
 *.json
+*.sh
+
+# Dossier de build Arduino
+/build/
