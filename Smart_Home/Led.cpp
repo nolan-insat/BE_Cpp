@@ -26,40 +26,34 @@ void Led::init() {
 
 void Led::activate() {
     this->isActive = true;
-    this->turnOn();
+    digitalWrite(this->pin, HIGH);
 }
 
 void Led::deactivate() {
-    this->turnOff();
+    digitalWrite(this->pin, HIGH);
     this->isActive = false;
     
 }
 
 void Led::turnOn() {
-    if (this->isActive) {
-        digitalWrite(this->pin, HIGH);
-    }
+    digitalWrite(this->pin, HIGH);
 }
 
 void Led::turnOff() {
-    if (this->isActive) {
-        digitalWrite(this->pin, LOW);
-    }
+    digitalWrite(this->pin, LOW);
 }
 
 void Led::toggle() {
-    if (this->isActive) {
-        digitalWrite(this->pin, !digitalRead(this->pin));
-    }
+    digitalWrite(this->pin, !digitalRead(this->pin));
+
 }
 
 void Led::blink(int duration, int repetitions) {
-    if (this->isActive) {
-        for (int i = 0; i < repetitions; i++) {
-            toggle();
-            delay(duration);
-            toggle();
-            delay(duration);
-        }
+    for (int i = 0; i < repetitions; i++) {
+        toggle();
+        delay(duration);
+        toggle();
+        delay(duration);
     }
+
 }
