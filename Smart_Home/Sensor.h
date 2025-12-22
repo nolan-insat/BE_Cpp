@@ -7,10 +7,11 @@
 class Sensor : public Device {
 
 protected :
-    static int nbCapteurs;
+    static int SensorCount;
 
 public :
     Sensor(int pin);
+    Sensor(int pin, string name);
 
     //Getteurs
     virtual string getName();

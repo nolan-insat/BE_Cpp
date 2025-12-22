@@ -1,10 +1,10 @@
 #include "Buzzer.h"
 #include <iostream>
 
-Buzzer::Buzzer(int pin) : Actuator(pin){}
-Buzzer::Buzzer(int pin, string name) : Actuator(pin, name){}
+Buzzer::Buzzer(int pin) : Actuator(pin){ BuzzerCount++; }
+Buzzer::Buzzer(int pin, string name) : Actuator(pin, name){ BuzzerCount++; }
 
-Buzzer::~Buzzer(){deactivate();}
+Buzzer::~Buzzer(){ BuzzerCount--; deactivate(); }
 /*
 void Buzzer::init();
     void deactivate();

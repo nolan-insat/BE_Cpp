@@ -14,6 +14,8 @@ class Actuator : public Device {
     // Destructeur
     ~Actuator() ;
 
+    int getActuatorCount();
+
     string getName();
     int getPin();
     bool getIsActive();

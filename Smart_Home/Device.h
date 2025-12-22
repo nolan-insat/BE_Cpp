@@ -8,6 +8,7 @@ using namespace std;
 class Device {
 
 protected :
+    static int DeviceCount;
     string name;
     int pin;
     bool isActive;
@@ -20,6 +21,8 @@ public :
     virtual void init() = 0;
     virtual void deactivate() = 0;
     virtual void activate() = 0;
+
+    int getDeviceCount();
 
     //Getteurs
     virtual string getName() = 0;

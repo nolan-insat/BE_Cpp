@@ -13,6 +13,10 @@ Actuator::~Actuator() {
     ActuatorCount--;
 }
 
+int Actuator::getActuatorCount() {
+    return ActuatorCount;
+}
+
 string Actuator::getName() {
     return this->name;
 }

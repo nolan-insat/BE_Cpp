@@ -2,17 +2,11 @@
 
 int Led::LedCount = 0;
 
-Led::Led(int pin) : Actuator(pin) {
-    LedCount++;
-}
+Led::Led(int pin) : Actuator(pin) { LedCount++; }
 
-Led::Led(int pin, string name) : Actuator(pin, name) {
-    LedCount++;
-}
+Led::Led(int pin, string name) : Actuator(pin, name) { LedCount++; }
 
-Led::~Led() {
-    LedCount--;
-}
+Led::~Led() { LedCount--; deactivate(); }
 
 int Led::getLedCount() {
     return LedCount;
@@ -44,8 +38,7 @@ void Led::turnOff() {
 }
 
 void Led::toggle() {
-    digitalWrite(this->pin, !digitalRead(this->pin));
-
+    (this->isActive) ? deactivate() : activate();
 }
 
 void Led::blink(int duration, int repetitions) {

@@ -8,6 +8,7 @@
 class Buzzer : public Actuator {
 
 protected : 
+    static int BuzzerCount;
     int frequency;
     int duration;
 

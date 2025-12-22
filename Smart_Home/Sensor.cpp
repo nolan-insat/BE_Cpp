@@ -1,7 +1,12 @@
 #include "Sensor.h"
 #include <iostream>
 
-Sensor::Sensor(int pin) : Device(pin){}
+int Sensor::SensorCount = 0;
+
+Sensor::Sensor(int pin) : Device(pin){ SensorCount++; }
+Sensor::Sensor(int pin, string name) : Device(pin, name){ SensorCount++; }
+
+Sensor::~Sensor(){ SensorCount--; deactivate(); }
 
     //Getteurs
 string Sensor::getName() {return this->name;}
