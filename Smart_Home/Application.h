@@ -8,8 +8,8 @@
 
 #include <Arduino.h>
 #include "Led.h"
-#include "Equipement.h"
-#include "Actionneur.h"
+#include "Device.h"
+#include "Actuator.h"
 
 /**
   * @class Application

@@ -1,8 +1,8 @@
 #include <Arduino.h>
 
 #include "Application.h"
-#include "Equipement.h"
-#include "Actionneur.h"
+#include "Device.h"
+#include "Actuator.h"
 #include "Led.h"
 
 Application myApplication;

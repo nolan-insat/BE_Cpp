@@ -3,11 +3,11 @@
 
 #include <Arduino.h>
 #include <string>
-#include "Actionneur.h"
+#include "Actuator.h"
 
-class Led : public Actionneur {
+class Led : public Actuator {
     private:
-        static int nbLeds;
+        static int LedCount;
     public:
         // Constructeur
         Led(int pin);
@@ -15,16 +15,16 @@ class Led : public Actionneur {
         // Destructeur
         ~Led();
 
-        int getNbLeds();
+        int getLedCount();
 
         void init();
-        void activer();
-        void desactiver();
+        void activate();
+        void deactivate();
 
-        void allumer();
-        void eteindre();
+        void turnOn();
+        void turnOff();
         void toggle();
-        void clignote(int duree, int repetitions);
+        void blink(int duration, int repetitions);
 };
 
 #endif
