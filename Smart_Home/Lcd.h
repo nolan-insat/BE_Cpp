@@ -8,7 +8,8 @@
 
 class Lcd : public Actuator {
     private:
-        static int nbLcds;
+        static int LCDCount;
+        rgb_lcd lcd;  
     public:
         // Constructeur
         Lcd(int pin);

@@ -12,7 +12,7 @@ protected :
 public :
     Sensor(int pin);
     Sensor(int pin, string name);
-
+    ~Sensor();
     //Getteurs
     virtual string getName();
     virtual int getPin();

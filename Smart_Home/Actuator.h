@@ -23,7 +23,6 @@ class Actuator : public Device {
     void setName(string name);
     void setPin(int pin);
 
-    int getActuatorCount();
 
 };
 
