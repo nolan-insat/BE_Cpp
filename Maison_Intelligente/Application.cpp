@@ -3,8 +3,8 @@
  * @author <mettre l'adresse mail ou nom prenom>
  * @brief Fichier source de l'application
  *********************************************************************/
+#include <Arduino.h>
 #include "Application.h"
-#include "Arduino.h"
 #include "Equipement.h"
 #include "Actionneur.h"
 #include "Led.h"
