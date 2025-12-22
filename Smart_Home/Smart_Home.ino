@@ -1,4 +1,9 @@
+#include <Arduino.h>
+
 #include "Application.h"
+#include "Device.h"
+#include "Actuator.h"
+#include "Led.h"
 
 Application myApplication;
 

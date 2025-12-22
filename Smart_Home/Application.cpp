@@ -3,13 +3,12 @@
  * @author <mettre l'adresse mail ou nom prenom>
  * @brief Fichier source de l'application
  *********************************************************************/
+#include <Arduino.h>
 #include "Application.h"
-
-#include "Equipement.h"
-#include "Actionneur.h"
+#include "Device.h"
+#include "Actuator.h"
 #include "Led.h"
 
-#define D5 14
 
 /*
 #include <SoftwareSerial.h>
@@ -48,9 +47,11 @@ void Application::init(void)
 {
   Led led1(D5, "Led integrée");
   led1.init();
-  led1.allumer();
+  led1.activate();
+  led1.blink(500, 3);
+  led1.turnOn();
   delay(1000);
-  led1.eteindre();
+  led1.turnOff();
   /*
  Serial.begin(9600);
   delay(1000);
