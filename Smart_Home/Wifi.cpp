@@ -8,9 +8,18 @@ Wifi::~Wifi() {
     deconnecter();
 }
 
-void Wifi::initWifi() {
+void Wifi::init() {
     pinMode(this->pin, OUTPUT);
     this->isActive = true;
+    this->connecte = false;
+}
+
+void Wifi::activate() {
+    this->isActive = true;
+}
+
+void Wifi::deactivate() {
+    this->isActive = false;
     this->connecte = false;
 }
 

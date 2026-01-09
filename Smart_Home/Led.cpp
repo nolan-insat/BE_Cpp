@@ -24,7 +24,7 @@ void Led::activate() {
 }
 
 void Led::deactivate() {
-    digitalWrite(this->pin, HIGH);
+    digitalWrite(this->pin, LOW);
     this->isActive = false;
     
 }

@@ -2,6 +2,7 @@
 #define BUZZER_H_
 
 #include <iostream>
+#include <Arduino.h>
 #include "Actuator.h"
 
 

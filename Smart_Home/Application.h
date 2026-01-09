@@ -8,6 +8,9 @@
 
 #include <Arduino.h>
 #include "Led.h"
+#include "Wifi.h"
+#include "Lcd.h"
+#include "Buzzer.h"
 #include "Device.h"
 #include "Actuator.h"
 
@@ -38,5 +41,12 @@ class Application
      * @brief Fonction de lancement de l'application
     */
     void run(void);
+
+    private:
+      Led* led1;
+      Buzzer* buzzer1;
+      Lcd* lcd1;
+      Wifi* wifi1;
+
 };
 #endif

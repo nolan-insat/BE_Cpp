@@ -7,7 +7,11 @@
 #include "Application.h"
 #include "Device.h"
 #include "Actuator.h"
+#include "Sensor.h"
 #include "Led.h"
+#include "Wifi.h"
+#include "Lcd.h"
+#include "Buzzer.h"
 
 
 /*
@@ -16,10 +20,9 @@
 
 #include <Wire.h>
 #include <rgb_lcd.h>
-
+*/
 #include <ESP8266WiFi.h>
 
-#define BUZZER_PIN D5
 // Notes standard (Hz)
 #define DO  523  
 #define RE  587  
@@ -30,12 +33,10 @@
 #define SI  988  
 #define DO_AIGU  1047 
 
-rgb_lcd lcd;
-*/
+
 Application::Application()
 {
   Serial.begin(9600);
-  
 }
   
 Application::~Application()
@@ -46,76 +47,60 @@ Application::~Application()
 
 void Application::init(void)
 {
-  Led led1(D5, "Led integre");
-  led1.init();
-  led1.activate();
-  led1.blink(500, 3);
-  led1.turnOn();
-  delay(1000);
-  led1.turnOff();
+  led1 = new Led(D5, "Led1");
+  led1->init();
+ 
+  buzzer1 = new Buzzer(D8, "Buzzer1");
+  buzzer1->init();
+
+  int melody[] = {DO, MI, SOL, DO_AIGU, DO_AIGU, SOL, MI, DO};
+  buzzer1->playBeep();
   /*
- Serial.begin(9600);
-  delay(1000);
+  buzzer1->playMelody(melody, 8);
+  buzzer1->playMelody(melody, 8);
+  buzzer1->playMelody(melody, 8);
+  */
+  lcd1 = new Lcd(D1, "Lcd1");
+  lcd1->init();
+
+  lcd1->printMessage("Smart Home Init");
+  delay(2000);
+
   
+
+  lcd1->printMessage("Init Complete");
+  delay(2000);
+  lcd1->clear();
+
+
+  // WiFi = new Wifi(D1, "Wifi1");
   WiFi.begin("moi", "Nolan31*");
 
-  Wire.begin(D2, D1);
-  delay(100);
-  
-  pinMode(BUZZER_PIN, OUTPUT);
-  digitalWrite(BUZZER_PIN, LOW);
 
-  lcd.begin(16, 2);
-  lcd.setRGB(255, 0, 255);
-  lcd.clear();
-  
-  lcd.print("Connexion");
-  while (WiFi.status() != WL_CONNECTED) {
+  lcd1->printMessage("Connexion");
+  while ((WiFi.status() != WL_CONNECTED)) {
     delay(500);
-    lcd.print(".");
+    lcd1->printMessage(".");
   }
-  lcd.clear();
+  lcd1->clear();
 
-  // Mélodie Connexion réussie
-  tone(BUZZER_PIN, DO, 150); 
-  delay(200);
-  tone(BUZZER_PIN, MI, 150); 
-  delay(200);
-  tone(BUZZER_PIN, SOL, 150); 
-  delay(400);
-  tone(BUZZER_PIN, DO_AIGU, 300); 
-  delay(400);
-  lcd.println("\nConnecte!");
+
+  lcd1->printMessage("\nConnecte!");
   delay(2000);
-  lcd.clear();
+  lcd1->clear();
 
-  lcd.print("IP: ");
-  lcd.println(WiFi.localIP());
+  lcd1->printMessage("WiFi OK");
   delay(2000);
-  lcd.clear();
-
-  lcd.println("WiFi OK");
-  delay(2000);
-  lcd.clear();
-
+  lcd1->clear();
   WiFi.disconnect();
-  tone(BUZZER_PIN, DO_AIGU, 80); 
-  delay(200); 
-  tone(BUZZER_PIN, SOL, 80); 
-  delay(200);   
-  tone(BUZZER_PIN, MI, 80); 
-  delay(100);   
-  tone(BUZZER_PIN, DO, 250); 
-  delay(300); 
-  noTone(BUZZER_PIN);
-  lcd.println("WiFi deconnecte");
+
+  lcd1->printMessage("WiFi deconnecte");
   delay(100);
-  */
 }
 
 
 void Application::run(void)
 {
-
+  led1->blink(500, 3);
 
 }
