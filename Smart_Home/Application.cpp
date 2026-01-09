@@ -118,20 +118,20 @@ void Application::init(void)
   // 4. Capteurs
   // Bouton poussoir
   button1 = new Button(BUTTON_PIN, "Bouton");
-  button1->initialize();
+  button1->init();
   
   // Capteur tactile
   touchSensor1 = new TouchSensor(TOUCH_PIN, "Touch Sensor");
-  touchSensor1->initialize();
+  touchSensor1->init();
   
   // Capteur lumière
   lightSensor1 = new LightSensor(LIGHT_SENSOR_PIN, "Light Sensor");
-  lightSensor1->initialize();
+  lightSensor1->init();
   lightSensor1->setDarkThreshold(300);
   
   // Capteur sonore
   soundSensor1 = new SoundSensor(SOUND_SENSOR_PIN, "Sound Sensor");
-  soundSensor1->initialize();
+  soundSensor1->init();
   soundSensor1->setThreshold(600);
   
   // Affichage de confirmation
