@@ -5,12 +5,22 @@
  *********************************************************************/
 #include <Arduino.h>
 #include "Application.h"
+<<<<<<< HEAD:Smart_Home/Application.cpp
 #include "Device.h"
 #include "Actuator.h"
 #include "Led.h"
 
 
+=======
+#include <Arduino.h>
+#include "Equipement.h"
+#include "Actionneur.h"
+#include "Led.h"
+
+#define D5 14
+>>>>>>> 7480a6356b436d759ea865681b8b1181c2e1c979:project_name/Application.cpp
 /*
+
 #include <SoftwareSerial.h>
 
 #include <Wire.h>
