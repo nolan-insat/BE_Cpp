@@ -46,7 +46,7 @@ Application::~Application()
 
 void Application::init(void)
 {
-  Led led1(D5, "Led integrée");
+  Led led1(D5, "Led integre");
   led1.init();
   led1.activate();
   led1.blink(500, 3);
