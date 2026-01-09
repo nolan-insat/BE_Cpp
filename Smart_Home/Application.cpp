@@ -73,12 +73,12 @@ void Application::init(void)
   lcd1->clear();
 
 
-  wifi1 = new Wifi(D1, "Wifi1");
-  wifi1->connecter("moi", "Nolan31*");
+  // WiFi = new Wifi(D1, "Wifi1");
+  WiFi.begin("moi", "Nolan31*");
 
 
   lcd1->printMessage("Connexion");
-  while (!(wifi1->getConnecte())) {
+  while ((WiFi.status() != WL_CONNECTED)) {
     delay(500);
     lcd1->printMessage(".");
   }
@@ -92,7 +92,7 @@ void Application::init(void)
   lcd1->printMessage("WiFi OK");
   delay(2000);
   lcd1->clear();
-  wifi1->deconnecter();
+  WiFi.disconnect();
 
   lcd1->printMessage("WiFi deconnecte");
   delay(100);
