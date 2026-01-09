@@ -1,29 +1,29 @@
 #include "Wifi.h"
 #include <iostream>
 
-Wifi::Wifi(int pin) : Actionneur(pin) {}
-Wifi::Wifi(int pin, string name) : Actionneur(pin, name) {}
+Wifi::Wifi(int pin) : Actuator(pin) {}
+Wifi::Wifi(int pin, string name) : Actuator(pin, name) {}
 
 Wifi::~Wifi() {
     deconnecter();
 }
 
 void Wifi::initWifi() {
-    pinMode(this->broche, OUTPUT);
-    this->estActif = true;
+    pinMode(this->pin, OUTPUT);
+    this->isActive = true;
     this->connecte = false;
 }
 
 void Wifi::deconnecter() {
     this->connecte = false;
-    this->estActif = false;
+    this->isActive = false;
 }
 
 void Wifi::connecter(string ssid, string motdepasse) {
     this->ssid = ssid;
     this->motdepasse = motdepasse;
     this->connecte = true;
-    this->estActif = true;
+    this->isActive = true;
 }
 
 string Wifi::getSSID() {
