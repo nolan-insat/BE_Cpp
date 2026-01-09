@@ -19,8 +19,8 @@ int Lcd::getLCDCount() {
 }
 
 void Lcd::init() {
-    // Initialisation de l'écran LCD
-    this->lcd.begin(16, 2); // Exemple pour un écran 16x2
+    // Initialisation de l'ecran LCD
+    this->lcd.begin(16, 2); // ecran 16x2
     this->activate();
     this->lcd.clear();
 }

@@ -2,9 +2,9 @@
 #define WIFI_H_
 
 #include <iostream>
-#include "Actionneur.h"
+#include "Actuator.h"
 
-class Wifi : public Actionneur {
+class Wifi : public Actuator {
 protected:
     string ssid;
     string motdepasse;
