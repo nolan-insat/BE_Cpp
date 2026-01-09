@@ -1,4 +1,5 @@
 #include "Lcd.h"
+#include <Wire.h>
 
 int Lcd::LCDCount = 0;
 
@@ -20,6 +21,8 @@ int Lcd::getLCDCount() {
 
 void Lcd::init() {
     // Initialisation de l'ecran LCD
+    Wire.begin(D2, D1);
+    delay(100);
     this->lcd.begin(16, 2); // ecran 16x2
     this->activate();
     this->lcd.clear();
@@ -42,5 +45,11 @@ void Lcd::clear() {
 void Lcd::printMessage(const string& message) {
     if (this->isActive) {
         this->lcd.print(message.c_str());
+    }
+}
+
+void Lcd::setColor(int r, int g, int b) {
+    if (this->isActive) {
+        this->lcd.setRGB(r, g, b);
     }
 }

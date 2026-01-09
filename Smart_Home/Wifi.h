@@ -17,7 +17,7 @@ public:
     
     ~Wifi();
     
-    void initWifi();
+    void init();
     void deconnecter();
     void connecter(string ssid, string motdepasse);
     
@@ -27,6 +27,9 @@ public:
     
     void setSSID(string ssid);
     void setMotDePasse(string motdepasse);
+
+    void activate();
+    void deactivate();
 };
 
 #endif
