@@ -9,9 +9,9 @@ private:
     
 public:
     SoundSensor(int pin);
-    SoundSensor(int pin, string name);
+    SoundSensor(int pin, String name);
     
-    void initialize();
+    void init();
     
     int getSoundLevel();        // niveau sonore 0-1023
     bool isLoud();              // bruit > threshold

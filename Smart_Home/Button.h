@@ -6,17 +6,17 @@
 class Button : public Sensor {
 private:
     bool lastState;         
-    unsigned long lastPressTime; // éviter rebonds
+    unsigned long lastPressTime; // ï¿½viter rebonds
     
 public:
     Button(int pin);
-    Button(int pin, string name);
+    Button(int pin, String name);
     
-    void initialize();
+    void init();
     
     bool isPressed();           
     bool wasPressed();          
-    bool wasReleased();         // bouton vient d'être relâché
+    bool wasReleased();         // bouton vient d'ï¿½tre relï¿½chï¿½
 
 };
 

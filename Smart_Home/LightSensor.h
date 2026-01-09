@@ -9,12 +9,12 @@ private:
     
 public:
     LightSensor(int pin);
-    LightSensor(int pin, string name);
+    LightSensor(int pin, String name);
     
-    void initialize();
+    void init();
     
-    int getLightLevel();        // Retourne niveau lumière 0-1023
-    bool isTooDark();           // lumière < darkThreshold
+    int getLightLevel();        // Retourne niveau lumiï¿½re 0-1023
+    bool isTooDark();           // lumiï¿½re < darkThreshold
     bool isBright();           
     
     void setDarkThreshold(int t);

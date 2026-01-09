@@ -11,15 +11,15 @@ protected :
 
 public :
     Sensor(int pin);
-    Sensor(int pin, string name);
+    Sensor(int pin, String name);
     ~Sensor();
     //Getteurs
-    virtual string getName();
+    virtual String getName();
     virtual int getPin();
     virtual bool getIsActive();
 
     //Setteurs
-    virtual void setName(string name);
+    virtual void setName(String name);
     virtual void setPin(int pin);
     virtual void activate();
     virtual void deactivate();

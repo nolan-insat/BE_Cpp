@@ -7,26 +7,26 @@
 
 class Wifi : public Actuator {
 protected:
-    string ssid;
-    string motdepasse;
+    String ssid;
+    String motdepasse;
     bool connecte;
 
 public:
     Wifi(int pin);
-    Wifi(int pin, string name);
+    Wifi(int pin, String name);
     
     ~Wifi();
     
     void init();
     void deconnecter();
-    void connecter(string ssid, string motdepasse);
+    void connecter(String ssid, String motdepasse);
     
-    string getSSID();
-    string getMotDePasse();
+    String getSSID();
+    String getMotDePasse();
     bool getConnecte();
     
-    void setSSID(string ssid);
-    void setMotDePasse(string motdepasse);
+    void setSSID(String ssid);
+    void setMotDePasse(String motdepasse);
 
     void activate();
     void deactivate();

@@ -4,7 +4,7 @@ int Led::LedCount = 0;
 
 Led::Led(int pin) : Actuator(pin) { LedCount++; }
 
-Led::Led(int pin, string name) : Actuator(pin, name) { LedCount++; }
+Led::Led(int pin, String name) : Actuator(pin, name) { LedCount++; }
 
 Led::~Led() { LedCount--; deactivate(); }
 

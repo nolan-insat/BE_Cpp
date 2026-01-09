@@ -3,9 +3,9 @@
 
 LightSensor::LightSensor(int pin) : Sensor(pin, "Light Sensor"), darkThreshold(300) {}
 
-LightSensor::LightSensor(int pin, std::string name) : Sensor(pin, name), darkThreshold(300) {}
+LightSensor::LightSensor(int pin, String name) : Sensor(pin, name), darkThreshold(300) {}
 
-void LightSensor::initialize() {
+void LightSensor::init() {
     pinMode(this->pin, INPUT);
     this->isActive = true;
 }

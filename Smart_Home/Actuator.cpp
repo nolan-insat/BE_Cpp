@@ -5,7 +5,7 @@ int Actuator::ActuatorCount = 0;
 Actuator::Actuator(int pin) : Device(pin) {
     ActuatorCount++;
 } 
-Actuator::Actuator(int pin, string name) : Device(pin, name) {
+Actuator::Actuator(int pin, String name) : Device(pin, name) {
     ActuatorCount++;
 }
 
@@ -17,7 +17,7 @@ int Actuator::getActuatorCount() {
     return ActuatorCount;
 }
 
-string Actuator::getName() {
+String Actuator::getName() {
     return this->name;
 }
 
@@ -28,7 +28,7 @@ bool Actuator::getIsActive() {
     return this->isActive;
 }
 
-void Actuator::setName(string name) {
+void Actuator::setName(String name) {
     this->name = name;
 }
 

@@ -9,15 +9,15 @@ private:
     
 public:
     UltrasonicSensor(int triggerPin, int echoPin);
-    UltrasonicSensor(int triggerPin, int echoPin, string name);
+    UltrasonicSensor(int triggerPin, int echoPin, String name);
     
-    void initialize();
+    void init();
     void deactivate();
     
     float readDistance();
-    bool isObjectDetected(float maxDistance = 100.0);  // Détection objet
+    bool isObjectDetected(float maxDistance = 100.0);  // Dï¿½tection objet
     
-    int getEchoPin();
+    int getEchoPin() const;
 };
 
 #endif

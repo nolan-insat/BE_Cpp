@@ -13,7 +13,7 @@ class Lcd : public Actuator {
     public:
         // Constructeur
         Lcd(int pin);
-        Lcd(int pin, string name);
+        Lcd(int pin, String name);
         // Destructeur
         ~Lcd();
 
@@ -23,7 +23,7 @@ class Lcd : public Actuator {
         void activate();
         void deactivate();
 
-        void printMessage(const string& message);
+        void printMessage(const String& message);
         void setColor(int r, int g, int b);
         void clear();
 };

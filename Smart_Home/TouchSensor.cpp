@@ -3,9 +3,9 @@
 
 TouchSensor::TouchSensor(int pin) : Sensor(pin, "Touch Sensor"), lastState(false), lastChangeTime(0) {}
 
-TouchSensor::TouchSensor(int pin, string name) : Sensor(pin, name), lastState(false), lastChangeTime(0) {}
+TouchSensor::TouchSensor(int pin, String name) : Sensor(pin, name), lastState(false), lastChangeTime(0) {}
 
-void TouchSensor::initialize() {
+void TouchSensor::init() {
     pinMode(this->pin, INPUT);
     this->isActive = true;
 }

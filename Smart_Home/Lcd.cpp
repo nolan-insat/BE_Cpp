@@ -7,7 +7,7 @@ Lcd::Lcd(int pin) : Actuator(pin) {
     LCDCount++;
 }
 
-Lcd::Lcd(int pin, string name) : Actuator(pin, name) {
+Lcd::Lcd(int pin, String name) : Actuator(pin, name) {
     LCDCount++;
 }
 
@@ -42,7 +42,7 @@ void Lcd::clear() {
     }
 }
 
-void Lcd::printMessage(const string& message) {
+void Lcd::printMessage(const String& message) {
     if (this->isActive) {
         this->lcd.print(message.c_str());
     }

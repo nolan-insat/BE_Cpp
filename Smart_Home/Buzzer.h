@@ -15,7 +15,7 @@ protected :
 
 public :
     Buzzer(int pin);
-    Buzzer(int pin, string name);
+    Buzzer(int pin, String name);
 
     ~Buzzer();
 

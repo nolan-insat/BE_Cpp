@@ -3,9 +3,9 @@
 
 UltrasonicSensor::UltrasonicSensor(int triggerPin, int echoPin) : Sensor(triggerPin, "Motion Sensor"), echoPin(echoPin) {}
 
-UltrasonicSensor::UltrasonicSensor(int triggerPin, int echoPin, string name) : Sensor(triggerPin, name), echoPin(echoPin) {}
+UltrasonicSensor::UltrasonicSensor(int triggerPin, int echoPin, String name) : Sensor(triggerPin, name), echoPin(echoPin) {}
 
-void UltrasonicSensor::initialize() {
+void UltrasonicSensor::init() {
     pinMode(this->pin, OUTPUT);     
     pinMode(this->echoPin, INPUT);  
     this->isActive = true;
@@ -24,7 +24,7 @@ float UltrasonicSensor::readDistance() {
     delayMicroseconds(10);
     digitalWrite(this->pin, LOW);
     
-    // Lecture durée echo
+    // Lecture durï¿½e echo
     long duration = pulseIn(this->echoPin, HIGH);
     
     // Calcul distance (vitesse du son = 340 m/s)

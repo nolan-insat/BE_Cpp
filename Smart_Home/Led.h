@@ -2,7 +2,6 @@
 #define LED_H_
 
 #include <Arduino.h>
-#include <string>
 #include "Actuator.h"
 
 class Led : public Actuator {
@@ -11,7 +10,7 @@ class Led : public Actuator {
     public:
         // Constructeur
         Led(int pin);
-        Led(int pin, string name);
+        Led(int pin, String name);
         // Destructeur
         ~Led();
 

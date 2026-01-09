@@ -3,9 +3,9 @@
 
 Button::Button(int pin) : Sensor(pin, "Button"), lastState(false), lastPressTime(0) {}
 
-Button::Button(int pin, string name) : Sensor(pin, name), lastState(false), lastPressTime(0) {}
+Button::Button(int pin, String name) : Sensor(pin, name), lastState(false), lastPressTime(0) {}
 
-void Button::initialize() {
+void Button::init() {
     pinMode(this->pin, INPUT_PULLUP);  
     this->isActive = true;
 }
@@ -13,7 +13,7 @@ void Button::initialize() {
 bool Button::isPressed() {
     if (!this->isActive) return false;
     
-    // Avec pull-up : LOW = pressé
+    // Avec pull-up : LOW = pressï¿½
     return digitalRead(this->pin) == LOW;
 }
 

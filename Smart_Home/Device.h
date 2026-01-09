@@ -1,21 +1,20 @@
 #ifndef DEVICE_H_
 #define DEVICE_H_
 
+#include <Arduino.h>
 #include <iostream>
-
-using namespace std;
 
 class Device {
 
 protected :
     static int DeviceCount;
-    string name;
+    String name;
     int pin;
     bool isActive;
 
 public :
     Device(int pin);
-    Device(int pin, string name);
+    Device(int pin, String name);
     ~Device();
 
     virtual void init() = 0;
@@ -25,12 +24,12 @@ public :
     int getDeviceCount();
 
     //Getteurs
-    virtual string getName() = 0;
+    virtual String getName() = 0;
     virtual int getPin() = 0;
     virtual bool getIsActive() = 0;
 
     //Setteurs
-    virtual void setName(string name) = 0;
+    virtual void setName(String name) = 0;
     virtual void setPin(int pin) = 0;
 };
 

@@ -2,7 +2,7 @@
 #include <iostream>
 
 Wifi::Wifi(int pin) : Actuator(pin) {}
-Wifi::Wifi(int pin, string name) : Actuator(pin, name) {}
+Wifi::Wifi(int pin, String name) : Actuator(pin, name) {}
 
 Wifi::~Wifi() {
     deconnecter();
@@ -28,18 +28,18 @@ void Wifi::deconnecter() {
     this->isActive = false;
 }
 
-void Wifi::connecter(string ssid, string motdepasse) {
+void Wifi::connecter(String ssid, String motdepasse) {
     this->ssid = ssid;
     this->motdepasse = motdepasse;
     this->connecte = true;
     this->isActive = true;
 }
 
-string Wifi::getSSID() {
+String Wifi::getSSID() {
     return this->ssid;
 }
 
-string Wifi::getMotDePasse() {
+String Wifi::getMotDePasse() {
     return this->motdepasse;
 }
 
@@ -47,10 +47,10 @@ bool Wifi::getConnecte() {
     return this->connecte;
 }
 
-void Wifi::setSSID(string ssid) {
+void Wifi::setSSID(String ssid) {
     this->ssid = ssid;
 }
 
-void Wifi::setMotDePasse(string motdepasse) {
+void Wifi::setMotDePasse(String motdepasse) {
     this->motdepasse = motdepasse;
 }

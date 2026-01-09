@@ -4,7 +4,6 @@
 #include <iostream>
 #include "Sensor.h"
 
-using namespace std;
 
 class TouchSensor : public Sensor {
 private:
@@ -14,14 +13,14 @@ private:
 public:
     // Constructeurs
     TouchSensor(int pin);
-    TouchSensor(int pin, string name);
+    TouchSensor(int pin, String name);
     
-    void initialize();
+    void init();
     void deactivate();
     
     bool isTouched();    
     bool isPressed();          
-    bool isReleased();      // Détection relâchement
+    bool isReleased();      // Dï¿½tection relï¿½chement
 
 };
 

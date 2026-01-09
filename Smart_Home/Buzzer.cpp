@@ -5,7 +5,7 @@
 int Buzzer::BuzzerCount = 0;
 
 Buzzer::Buzzer(int pin) : Actuator(pin){ BuzzerCount++; }
-Buzzer::Buzzer(int pin, string name) : Actuator(pin, name){ BuzzerCount++; }
+Buzzer::Buzzer(int pin, String name) : Actuator(pin, name){ BuzzerCount++; }
 
 Buzzer::~Buzzer(){ BuzzerCount--; deactivate(); }
 

@@ -10,17 +10,17 @@ class Actuator : public Device {
 
     // Constructeur
     Actuator(int pin) ;
-    Actuator(int pin, string name);
+    Actuator(int pin, String name);
     // Destructeur
     ~Actuator() ;
 
     int getActuatorCount();
 
-    string getName();
+    String getName();
     int getPin();
     bool getIsActive();
 
-    void setName(string name);
+    void setName(String name);
     void setPin(int pin);
 
 

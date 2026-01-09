@@ -3,9 +3,9 @@
 
 SoundSensor::SoundSensor(int pin) : Sensor(pin, "Sound Sensor"), threshold(500) {}
 
-SoundSensor::SoundSensor(int pin, string name) : Sensor(pin, name), threshold(500) {}
+SoundSensor::SoundSensor(int pin, String name) : Sensor(pin, name), threshold(500) {}
 
-void SoundSensor::initialize() {
+void SoundSensor::init() {
     pinMode(this->pin, INPUT);
     this->isActive = true;
 }
