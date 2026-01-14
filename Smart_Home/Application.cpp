@@ -12,6 +12,10 @@
 #include "Wifi.h"
 #include "Lcd.h"
 #include "Buzzer.h"
+#include "Button.h"
+#include "TouchSensor.h"
+#include "LightSensor.h"
+#include "SoundSensor.h"
 
 
 /*
@@ -33,10 +37,26 @@
 #define SI  988  
 #define DO_AIGU  1047 
 
+#define LED_PIN D5
+#define BUZZER_PIN D8
+#define LCD_PIN D1
+#define BUTTON_PIN D6
+#define TOUCH_PIN D7
+#define LIGHT_SENSOR_PIN A0
+#define SOUND_SENSOR_PIN A0
+
 
 Application::Application()
 {
   Serial.begin(9600);
+
+  Led led1(LED_PIN, "LED System");
+  Buzzer buzzer1(BUZZER_PIN, "Buzzer System");
+  Lcd lcd1(LCD_PIN, "LCD Display");
+  Button button1(BUTTON_PIN, "Bouton");
+  TouchSensor touchSensor1(TOUCH_PIN, "Touch Sensor");
+  LightSensor lightSensor1(LIGHT_SENSOR_PIN, "Light Sensor");
+  SoundSensor soundSensor1(SOUND_SENSOR_PIN, "Sound Sensor");
 }
   
 Application::~Application()
@@ -47,6 +67,7 @@ Application::~Application()
 
 void Application::init(void)
 {
+  /*
   led1 = new Led(D5, "Led1");
   led1->init();
  
@@ -55,11 +76,11 @@ void Application::init(void)
 
   int melody[] = {DO, MI, SOL, DO_AIGU, DO_AIGU, SOL, MI, DO};
   buzzer1->playBeep();
-  /*
+  
   buzzer1->playMelody(melody, 8);
   buzzer1->playMelody(melody, 8);
   buzzer1->playMelody(melody, 8);
-  */
+  
   lcd1 = new Lcd(D1, "Lcd1");
   lcd1->init();
 
@@ -96,38 +117,56 @@ void Application::init(void)
 
   lcd1->printMessage("WiFi deconnecte");
   delay(100);
-
-  /*Serial.println("=== INITIALISATION SYSTEME ===");
+  */
   
+  // Serial.println("=== INITIALISATION SYSTEME ===");
+  /*
   // 1. LED (Actionneur)
   led1 = new Led(LED_PIN, "LED System");
   led1->init();
-  led1->turnOff();
+  led1->activate();
   
   // 2. Buzzer (Actionneur)
   buzzer1 = new Buzzer(BUZZER_PIN, "Buzzer System");
   buzzer1->init();
+  buzzer1->playBeep();
   
   // 3. LCD (Actionneur)
   lcd1 = new Lcd(LCD_PIN, "LCD Display");
+  
   lcd1->init();
   lcd1->setColor(0, 100, 0); // Vert
   lcd1->printMessage("Systeme OK");
   delay(1000);
+  lcd1->printMessage("Initialisation...");
+  delay(1000);
+
   
   // 4. Capteurs
   // Bouton poussoir
+  lcd1->clear();
   button1 = new Button(BUTTON_PIN, "Bouton");
+  lcd1->printMessage("Init Bouton");
   button1->init();
+  lcd1->printMessage("Bouton OK\n");
+  delay(500);
   
   // Capteur tactile
+  lcd1->clear();
   touchSensor1 = new TouchSensor(TOUCH_PIN, "Touch Sensor");
+  lcd1->printMessage("Init Touch Sensor");
   touchSensor1->init();
+  lcd1->printMessage("Touch Sensor OK");
+  delay(500);
   
-  // Capteur lumière
+  // Capteur lumiï¿½re
+  lcd1->clear();
   lightSensor1 = new LightSensor(LIGHT_SENSOR_PIN, "Light Sensor");
+  lcd1->printMessage("Init Light Sensor");
   lightSensor1->init();
   lightSensor1->setDarkThreshold(300);
+  lcd1->printMessage("Light Sensor OK\n");
+  delay(500);
   
   // Capteur sonore
   soundSensor1 = new SoundSensor(SOUND_SENSOR_PIN, "Sound Sensor");
@@ -139,7 +178,7 @@ void Application::init(void)
   lcd1->printMessage("Initialisation");
   lcd1->setColor(0, 0, 100); // Bleu
   
-  // Séquence sonore et lumineuse de démarrage
+  // Sï¿½quence sonore et lumineuse de dï¿½marrage
   led1->blink(200, 3);
   
   int melody[] = {523, 659, 784, 1047}; // Do, Mi, Sol, Do aigu
@@ -155,8 +194,17 @@ void Application::init(void)
   Serial.println("1. Appui bouton: Mode demonstration");
   Serial.println("2. Touch sensor: Mode surveillance");
   Serial.println("3. Systeme automatique");
-}
-*/
+  */
+
+
+
+  led1->init();
+  buzzer1->init();
+  lcd1->init();
+  button1->init();
+  touchSensor1->init();
+  lightSensor1->init();
+  soundSensor1->init();
 }
 
 

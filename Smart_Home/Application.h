@@ -13,6 +13,11 @@
 #include "Buzzer.h"
 #include "Device.h"
 #include "Actuator.h"
+#include "Sensor.h"
+#include "Button.h"
+#include "TouchSensor.h"
+#include "LightSensor.h"
+#include "SoundSensor.h"
 
 /**
   * @class Application
@@ -47,6 +52,10 @@ class Application
       Buzzer* buzzer1;
       Lcd* lcd1;
       Wifi* wifi1;
+      Button* button1;
+      TouchSensor* touchSensor1;
+      LightSensor* lightSensor1;
+      SoundSensor* soundSensor1;
 
 };
 #endif
