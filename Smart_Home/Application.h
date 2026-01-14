@@ -52,7 +52,6 @@ class Application
     void run(void);
 
     private:
-      Led* led1;
       Buzzer* buzzer1;
       Lcd* lcd1;
       Wifi* wifi1;
@@ -64,10 +63,9 @@ class Application
       UltrasonicSensor* ultrasonicSensor1;
       ESP8266WebServer* server;
 
-      // Périphériques pour LightController
+      // Pï¿½riphï¿½riques pour LightController
       Led* ledSalon;
       LightSensor* lightSensor1;
-      UltrasonicSensor* ultrasonic1;
       LightController* lightController;
 
 };

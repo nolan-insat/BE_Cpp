@@ -20,9 +20,9 @@
 #include "UltrasonicSensor.h"
 #include "LightController.h"
 
-/*
 
-#include <SoftwareSerial.h>
+
+// #include <SoftwareSerial.h>
 
 #include <Wire.h>
 #include <rgb_lcd.h>
@@ -58,7 +58,7 @@ Application::Application()
 
   server = new ESP8266WebServer(80);
 
-  led1 = new Led(LED_PIN, "LED System");
+  // ledSalon = new Led(LED_PIN, "LED System");
   buzzer1 = new Buzzer(BUZZER_PIN, "Buzzer System");
   lcd1 = new Lcd(LCD_PIN, "LCD Display");
   button1 = new Button(BUTTON_PIN, "Bouton");
@@ -87,9 +87,9 @@ Application::~Application()
     if (lightSensor1) {
         delete lightSensor1;
     }
-    
-    if (ultrasonic1) {
-        delete ultrasonic1;
+
+    if (ultrasonicSensor1) {
+        delete ultrasonicSensor1;
     }
 }  
 
@@ -226,8 +226,8 @@ void Application::init(void)
 
 
 
-  led1->init();
-  led1->blink(200, 2);
+  // led1->init();
+  // led1->blink(200, 2);
   buzzer1->init();
   buzzer1->playBeep();
   lcd1->init();
@@ -272,21 +272,17 @@ void Application::init(void)
 
   try {
     // Init LED
-    ledSalon = new Led(PIN_LED, "LED Salon");
+    ledSalon = new Led(LED_PIN, "LED Salon");
     ledSalon->init();
     ledSalon->turnOff();
         
-    // Init capteur ultrason pour pr�sence
-    ultrasonic1 = new UltrasonicSensor(PIN_TRIG, PIN_ECHO, "Ultrasonic Sensor");
-    ultrasonic1->init();
-        
     // Initialisation du LightController
-    lightController = new LightController(ultrasonic1, lightSensor1, ledSalon);
+    lightController = new LightController(ultrasonicSensor1, lightSensor1, ledSalon);
     lightController->init();
-    
-    // Configurer les param�tres
-    lightController->setDetectionDistance(100.0);  // 1 m�tre
-    lightController->setLightThreshold(350);       // Seuil de luminosit�
+
+    // Configurer les paramètres
+    lightController->setDetectionDistance(100.0);  // 1 mètre
+    lightController->setLightThreshold(350);       // Seuil de luminosité
 
     } catch (LightControllerException& e) {
       Serial.print("Erreur LightController: ");
@@ -298,12 +294,12 @@ void Application::init(void)
 
 void Application::run(void)
 {
-  led1->blink(500, 3);
+  ledSalon->blink(500, 3);
 
   unsigned long currentTime = millis();
 
   try {
-    // Mettre � jour le LightController
+    // Mettre à jour le LightController
     if (lightController) {
       bool lightState = lightController->update();
     }
