@@ -68,6 +68,9 @@ Application::Application()
   ultrasonicSensor1 = new UltrasonicSensor(ULTRASONIC_PIN, "Ultrasonic Sensor");
   wifi1 = new Wifi(0, "Wifi1");
 
+  // lightController = new LightController(ultrasonicSensor1, lightSensor1, ledSalon);
+
+
   alarm1 = new Alarm();
 
 }
@@ -256,14 +259,16 @@ void Application::init(void)
   Serial.println("Capteurs initialises.");
   delay(500);
 
+  alarm1->init(buzzer1, ultrasonicSensor1, lcd1);
+
 
   server->on("/ON", [&](){
-        alarm1->arm(buzzer1);
+        alarm1->arm();
         server->send(200, "text/plain", "Alarm armed");
     });
 
     server->on("/OFF", [&](){
-        alarm1->disarm(buzzer1);
+        alarm1->disarm();
         server->send(200, "text/plain", "Alarm disarmed");
     });
 
@@ -305,11 +310,11 @@ void Application::run(void)
     }
 
     // Touch sensor pour changer le mode du light controller
-    if (touchSensor1->isTouched){
+    if (touchSensor1->isTouched()){
       lightController->toggleMode();
     }
     // Si on appuie sur le bouton, et qu'on est en mode manuel, la led s'allume
-    if (button1->isPressed && !lightController->isAutoMode()){
+    if (button1->isPressed() && !lightController->isAutoMode()){
       lightController->turnOn();
     }
 
@@ -317,7 +322,7 @@ void Application::run(void)
     
     if (currentTime - lastStatsTime > 30000) {
       if (lightController) {
-        LightController->printStats();
+        lightController->printStats();
       }
       lastStatsTime = currentTime;
     }       
@@ -328,6 +333,6 @@ void Application::run(void)
         
   server->handleClient();
 
-  alarm1->trigger(buzzer1, ultrasonicSensor1);
+  alarm1->trigger();
 
 }

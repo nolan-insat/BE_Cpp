@@ -1,20 +1,26 @@
-#ifndef ALARM_H
-#define ALARM_H
+#ifndef ALARM_H_
+#define ALARM_H_
 
 #include "Buzzer.h"
 #include "UltrasonicSensor.h"
+#include <Arduino.h>
+#include "Lcd.h"
 
 class Alarm {
 private:
     bool armed;
     unsigned long triggerTime;
+    Buzzer* buzzer;
+    UltrasonicSensor* ultrasonicSensor;
+    Lcd* lcd;
 public:
     Alarm();
     ~Alarm();
-    void arm(Buzzer* buzzer);
-    void disarm(Buzzer* buzzer);
+    void init(Buzzer* buzzer, UltrasonicSensor* ultrasonicSensor, Lcd* lcd);
+    void arm();
+    void disarm();
     bool isArmed() const;
-    void trigger(Buzzer* buzzer, UltrasonicSensor* ultrasonicSensor);
+    void trigger();
     unsigned long getTriggerTime() const;
     void setTriggerTime(unsigned long time);
 };

@@ -1,7 +1,7 @@
 #ifndef LIGHT_CONTROLLER_H_
 #define LIGHT_CONTROLLER_H_
 
-/* Contrôleur d'éclairage automatique basé sur présence et luminosité */
+/* Contrï¿½leur d'ï¿½clairage automatique basï¿½ sur prï¿½sence et luminositï¿½ */
 
 #include <Arduino.h>
 #include "UltrasonicSensor.h"
@@ -17,16 +17,16 @@ private:
     LightSensor* lightSensor;
     Led* led;
     
-    float detectionDistance;    // Distance max de détection 
-    int lightThreshold;         // Seuil de luminosité 
-    bool autoMode;              // Mode automatique activé
-    bool lightState;            // État actuel de la lumière
+    float detectionDistance;    // Distance max de dï¿½tection 
+    int lightThreshold;         // Seuil de luminositï¿½ 
+    bool autoMode;              // Mode automatique activï¿½
+    bool lightState;            // ï¿½tat actuel de la lumiï¿½re
     
     // Statistiques
     unsigned int detectionCount;
     unsigned int lightOnCount;
     
-    // Méthodes 
+    // Mï¿½thodes 
     bool checkPresence();
     bool checkLightLevel();
     void updateLight(bool shouldBeOn);
@@ -42,23 +42,23 @@ public:
     
     void init();
     
-    // Cycle de contrôle de la présence et de la luminosité, puis activation ou non de la led en consequence.
-    // Retourne true si la LED est allumée, false sinon
+    // Cycle de contrï¿½le de la prï¿½sence et de la luminositï¿½, puis activation ou non de la led en consequence.
+    // Retourne true si la LED est allumï¿½e, false sinon
     bool update();
     
-    //Vérifie si la lumière est allumée
+    //Vï¿½rifie si la lumiï¿½re est allumï¿½e
     bool isLightOn() const;
 
     // Getter pour le mode
     bool isAutoMode() const {return autoMode;}  
     
-    // Définit la distance de détection
+    // Dï¿½finit la distance de dï¿½tection
     void setDetectionDistance(float distance);
     
-    // Définit le seuil de luminosité pour allumer
+    // Dï¿½finit le seuil de luminositï¿½ pour allumer
     void setLightThreshold(int threshold);
     
-    // Active/désactive le contrôle automatique
+    // Active/dï¿½sactive le contrï¿½le automatique
     void setAutoMode(bool enabled);
     
     void toggleMode();
@@ -74,7 +74,12 @@ public:
     
 };
 
-// Exception pour le contrôleur
+#endif
+
+#ifndef LIGHT_CONTROLLER_EXCEPTION_H_
+#define LIGHT_CONTROLLER_EXCEPTION_H_
+
+// Exception pour le contrï¿½leur
 class LightControllerException {
 private:
     String message;

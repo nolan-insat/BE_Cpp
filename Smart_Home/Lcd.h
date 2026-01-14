@@ -26,6 +26,8 @@ class Lcd : public Actuator {
         void printMessage(const String& message);
         void setColor(int r, int g, int b);
         void clear();
+        void setCursor(int col, int row);
+        void clearLine(int row);
 };
 
 

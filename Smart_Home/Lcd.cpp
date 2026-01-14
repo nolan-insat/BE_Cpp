@@ -29,6 +29,22 @@ void Lcd::init() {
     lcd.clear();
 }
 
+void Lcd::setCursor(int col, int row) {
+    if (this->isActive) {
+        lcd.setCursor(col, row);
+    }
+}
+
+void Lcd::clearLine(int row) {
+    if (this->isActive) {
+        lcd.setCursor(0, row);
+        for (int i = 0; i < 16; i++) {
+            lcd.print(" ");
+        }
+        lcd.setCursor(0, row);
+    }
+}
+
 void Lcd::activate() {
     this->isActive = true;
 }

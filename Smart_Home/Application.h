@@ -22,6 +22,7 @@
 #include "SoundSensor.h"
 #include "Alarm.h"
 #include "UltrasonicSensor.h"
+#include "LightController.h"
 
 /**
   * @class Application
@@ -57,7 +58,6 @@ class Application
       Wifi* wifi1;
       Button* button1;
       TouchSensor* touchSensor1;
-      LightSensor* lightSensor1;
       SoundSensor* soundSensor1;
       Alarm* alarm1;
       UltrasonicSensor* ultrasonicSensor1;
