@@ -64,6 +64,12 @@ class Application
       UltrasonicSensor* ultrasonicSensor1;
       ESP8266WebServer* server;
 
+      // Périphériques pour LightController
+      Led* ledSalon;
+      LightSensor* lightSensor1;
+      UltrasonicSensor* ultrasonic1;
+      LightController* lightController;
+
 };
 
 #endif

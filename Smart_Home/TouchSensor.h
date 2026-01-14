@@ -8,7 +8,6 @@
 class TouchSensor : public Sensor {
 private:
     bool lastState;
-    unsigned long lastChangeTime;
     
 public:
     // Constructeurs
@@ -19,8 +18,6 @@ public:
     void deactivate();
     
     bool isTouched();    
-    bool isPressed();          
-    bool isReleased();      // D�tection rel�chement
 
 };
 

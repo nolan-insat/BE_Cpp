@@ -18,14 +18,11 @@
 #include "SoundSensor.h"
 #include "Alarm.h"
 #include "UltrasonicSensor.h"
+#include "LightController.h"
 
+/*
 
-
-
-
-
-
-#include <HardwareSerial.h>
+#include <SoftwareSerial.h>
 
 #include <Wire.h>
 #include <rgb_lcd.h>
@@ -77,8 +74,23 @@ Application::Application()
   
 Application::~Application()
 {
-  // Code
-  ;
+  // Nettoyage LightController en premier
+    if (lightController) {
+        delete lightController;
+    }
+    
+    // Nettoyage des p�riph�riques
+    if (ledSalon) {
+        delete ledSalon;
+    }
+    
+    if (lightSensor1) {
+        delete lightSensor1;
+    }
+    
+    if (ultrasonic1) {
+        delete ultrasonic1;
+    }
 }  
 
 void Application::init(void)
@@ -256,13 +268,68 @@ void Application::init(void)
     });
 
     server->begin();
+
+
+  try {
+    // Init LED
+    ledSalon = new Led(PIN_LED, "LED Salon");
+    ledSalon->init();
+    ledSalon->turnOff();
+        
+    // Init capteur ultrason pour pr�sence
+    ultrasonic1 = new UltrasonicSensor(PIN_TRIG, PIN_ECHO, "Ultrasonic Sensor");
+    ultrasonic1->init();
+        
+    // Initialisation du LightController
+    lightController = new LightController(ultrasonic1, lightSensor1, ledSalon);
+    lightController->init();
+    
+    // Configurer les param�tres
+    lightController->setDetectionDistance(100.0);  // 1 m�tre
+    lightController->setLightThreshold(350);       // Seuil de luminosit�
+
+    } catch (LightControllerException& e) {
+      Serial.print("Erreur LightController: ");
+      Serial.println(e.what());
+    }
 }
+
 
 
 void Application::run(void)
 {
   led1->blink(500, 3);
 
+  unsigned long currentTime = millis();
+
+  try {
+    // Mettre � jour le LightController
+    if (lightController) {
+      bool lightState = lightController->update();
+    }
+
+    // Touch sensor pour changer le mode du light controller
+    if (touchSensor1->isTouched){
+      lightController->toggleMode();
+    }
+    // Si on appuie sur le bouton, et qu'on est en mode manuel, la led s'allume
+    if (button1->isPressed && !lightController->isAutoMode()){
+      lightController->turnOn();
+    }
+
+    static unsigned long lastStatsTime = 0;
+    
+    if (currentTime - lastStatsTime > 30000) {
+      if (lightController) {
+        LightController->printStats();
+      }
+      lastStatsTime = currentTime;
+    }       
+    } catch (LightControllerException& e) {
+      Serial.print("Erreur LightController dans run(): ");
+      Serial.println(e.what());
+    }
+        
   server->handleClient();
 
   alarm1->trigger(buzzer1, ultrasonicSensor1);

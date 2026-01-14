@@ -17,6 +17,7 @@ bool Button::isPressed() {
     return digitalRead(this->pin) == LOW;
 }
 
+/*
 bool Button::wasPressed() {
     if (!this->isActive) return false;
     
@@ -50,4 +51,4 @@ bool Button::wasReleased() {
     
     lastState = currentPressed;
     return false;
-}
+}*/

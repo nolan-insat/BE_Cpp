@@ -1,0 +1,177 @@
+#include "LightController.h"
+#include <Arduino.h>
+
+LightController::LightController(UltrasonicSensor* presenceSensor, 
+                               LightSensor* lightSensor, 
+                               Led* led)
+    : presenceSensor(presenceSensor), 
+      lightSensor(lightSensor), 
+      led(led),
+      detectionDistance(50.0),   // 50 cm par défaut
+      lightThreshold(300),       // Seuil par défaut
+      autoMode(true),           // Mode automatique activé par défaut
+      lightState(false),
+      detectionCount(0),
+      lightOnCount(0) {
+    
+    Serial.println("LightController : constructeur");
+}
+
+LightController::~LightController() {
+    Serial.println("LightController : destructeur");
+    // Éteindre la LED à la destruction
+    if (led && led->getIsActive()) {
+        led->turnOff();
+    }
+}
+
+void LightController::init() {
+    
+    // Vérifier que tous les périphériques sont init
+    if (!presenceSensor || !presenceSensor->getIsActive()) {
+        throw LightControllerException("Capteur de presence non initialise");
+    }
+    
+    if (!lightSensor || !lightSensor->getIsActive()) {
+        throw LightControllerException("Capteur de lumiere non initialise");
+    }
+    
+    if (!led || !led->getIsActive()) {
+        throw LightControllerException("LED non initialisee");
+    }
+    
+    // Init l'état de la led, éteinte par défaut
+    lightState = false;
+    led->turnOff();
+}
+
+bool LightController::update() {
+    if (!autoMode) {
+        return lightState;  // Mode manuel, rien à faire
+    }
+    
+    try {
+        // On vérifie la présence de quelqu'un
+        bool presenceDetected = checkPresence();
+        
+        // On vérifie la luminosité
+        bool tooDark = checkLightLevel();
+        
+        // Décision état de la led
+        bool shouldBeOn = presenceDetected && tooDark;
+        updateLight(shouldBeOn);
+        
+        return lightState;
+        
+    } catch (const std::exception& e) {
+        Serial.print("LightController: Erreur lors de l'update");
+        Serial.println(e.what());
+        
+        // En cas d'erreur, on éteint la led par sécurité
+        if (led && led->getIsActive()) {
+            led->turnOff();
+            lightState = false;
+        }
+        
+        return false;
+    }
+}
+
+bool LightController::checkPresence() {
+    if (!presenceSensor || !presenceSensor->getIsActive()) {
+        throw LightControllerException("Capteur de presence inactif");
+    }
+    
+    float distance = presenceSensor->readDistance();
+    
+    bool detected = distance <= detectionDistance;
+    
+    if (detected) {
+        detectionCount++;
+    }
+    
+    return detected;
+}
+
+bool LightController::checkLightLevel() {
+    if (!lightSensor || !lightSensor->getIsActive()) {
+        throw LightControllerException("Capteur de lumiere inactif");
+    }
+    
+    int lightLevel = lightSensor->getLightLevel();
+    
+    // Retourne true si trop sombre
+    bool tooDark = lightLevel < lightThreshold;
+    
+    return tooDark;
+}
+
+void LightController::updateLight(bool shouldBeOn) {
+    if (!led || !led->getIsActive()) {
+        throw LightControllerException("LED inactive");
+    }
+    
+    // On change l'état seulement si nécessaire
+    if (shouldBeOn != lightState) {
+        if (shouldBeOn) {
+            led->turnOn();
+            lightOnCount++;
+        } else {
+            led->turnOff();
+        }
+        lightState = shouldBeOn;
+    }
+}
+
+bool LightController::isLightOn() const {
+    return lightState;
+}
+
+void LightController::setDetectionDistance(float distance) {
+    if (distance < 5.0 || distance > 400.0) {
+        throw LightControllerException("Distance invalide : 5-400 cm");
+    }
+    detectionDistance = distance;
+}
+
+void LightController::setLightThreshold(int threshold) {
+    if (threshold < 0 || threshold > 1023) {  
+        throw LightControllerException("Seuil invalide (0-1023)");
+    }
+    lightThreshold = threshold;
+}
+
+void LightController::setAutoMode(bool enabled) {
+    autoMode = enabled;
+}
+
+void LightController::toggleMode() {
+    setAutoMode(!autoMode);
+}
+
+void LightController::turnOn() {
+    setAutoMode(false);  // Passer en mode manuel
+    updateLight(true);
+}
+
+void LightController::turnOff() {
+    setAutoMode(false);  // Passer en mode manuel
+    updateLight(false);
+}
+
+void LightController::printStats() const {
+    Serial.println("--- STATISTIQUES LightController ---");
+    Serial.print("Detections de presence : ");
+    Serial.println(detectionCount);
+    Serial.print("Allumages de LED : ");
+    Serial.println(lightOnCount);
+    Serial.print("Etat actuel : ");
+    Serial.println(lightState ? "ALLUMEE" : "ETEINTE");
+    Serial.print("Mode : ");
+    Serial.println(autoMode ? "AUTOMATIQUE" : "MANUEL");
+    Serial.print("Distance configuree : ");
+    Serial.print(detectionDistance);
+    Serial.println(" cm");
+    Serial.print("Seuil lumiere : ");
+    Serial.println(lightThreshold);
+}
