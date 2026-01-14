@@ -16,6 +16,11 @@
 #include "TouchSensor.h"
 #include "LightSensor.h"
 #include "SoundSensor.h"
+#include "Alarm.h"
+#include "UltrasonicSensor.h"
+
+
+
 
 
 /*
@@ -26,6 +31,8 @@
 #include <rgb_lcd.h>
 */
 #include <ESP8266WiFi.h>
+
+#include <ESP8266WebServer.h>
 
 // Notes standard (Hz)
 #define DO  523  
@@ -44,11 +51,15 @@
 #define TOUCH_PIN D7
 #define LIGHT_SENSOR_PIN A0
 #define SOUND_SENSOR_PIN A0
+#define ULTRASONIC_TRIGGER_PIN D2
+#define ULTRASONIC_ECHO_PIN D3
 
 
 Application::Application()
 {
   Serial.begin(9600);
+
+  ESP8266WebServer server(80);
 
   Led led1(LED_PIN, "LED System");
   Buzzer buzzer1(BUZZER_PIN, "Buzzer System");
@@ -57,6 +68,9 @@ Application::Application()
   TouchSensor touchSensor1(TOUCH_PIN, "Touch Sensor");
   LightSensor lightSensor1(LIGHT_SENSOR_PIN, "Light Sensor");
   SoundSensor soundSensor1(SOUND_SENSOR_PIN, "Sound Sensor");
+  Alarm alarm1;
+
+
 }
   
 Application::~Application()
@@ -205,11 +219,35 @@ void Application::init(void)
   touchSensor1->init();
   lightSensor1->init();
   soundSensor1->init();
+  ultrasonicsensor1->init();
+
+  wifi1->connecter("moi", "Nolan31*");
+
+  lcd1->printMessage("IP:");
+  lcd1->printMessage(wifi1->getIP());
+  delay(2000);
+  lcd1->clear();
+
+  server->on("/ON", [&](){
+        alarm1->arm();
+        server->send(200, "text/plain", "OK");
+    });
+
+    server->on("/OFF", [&](){
+        alarm1->disarm();
+        server->send(200, "text/plain", "OK");
+    });
+
+    server->begin();
 }
 
 
 void Application::run(void)
 {
   led1->blink(500, 3);
+
+  server->handleClient();
+
+  alarm1->trigger(buzzer1, ultrasonicsensor1);
 
 }

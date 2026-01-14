@@ -1,5 +1,9 @@
 #include <Arduino.h>
 
+#include <ESP8266WebServer.h>
+
+#include <ESP8266WiFi.h>
+
 #include "Application.h"
 #include "Device.h"
 #include "Actuator.h"

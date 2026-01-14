@@ -30,6 +30,8 @@ public:
 
     void activate();
     void deactivate();
+
+    String getIP();
 };
 
 #endif

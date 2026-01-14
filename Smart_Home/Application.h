@@ -7,6 +7,8 @@
 #define APPLICATION_H_
 
 #include <Arduino.h>
+#include <ESP8266WiFi.h>
+#include <ESP8266WebServer.h>
 #include "Led.h"
 #include "Wifi.h"
 #include "Lcd.h"
@@ -18,6 +20,8 @@
 #include "TouchSensor.h"
 #include "LightSensor.h"
 #include "SoundSensor.h"
+#include "Alarm.h"
+#include "UltrasonicSensor.h"
 
 /**
   * @class Application
@@ -56,6 +60,10 @@ class Application
       TouchSensor* touchSensor1;
       LightSensor* lightSensor1;
       SoundSensor* soundSensor1;
+      Alarm* alarm1;
+      UltrasonicSensor* ultrasonicsensor1;
+      ESP8266WebServer* server;
 
 };
+
 #endif
