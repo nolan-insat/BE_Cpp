@@ -17,6 +17,8 @@
 #include "LightSensor.h"
 #include "SoundSensor.h"
 
+#include "LightController.h"
+
 
 /*
 
@@ -50,7 +52,7 @@ Application::Application()
 {
   Serial.begin(9600);
 
-  Led led1(LED_PIN, "LED System");
+  //Led led1(LED_PIN, "LED System");
   Buzzer buzzer1(BUZZER_PIN, "Buzzer System");
   Lcd lcd1(LCD_PIN, "LCD Display");
   Button button1(BUTTON_PIN, "Bouton");
@@ -61,8 +63,23 @@ Application::Application()
   
 Application::~Application()
 {
-  // Code
-  ;
+  // Nettoyage LightController en premier
+    if (lightController) {
+        delete lightController;
+    }
+    
+    // Nettoyage des périphériques
+    if (ledSalon) {
+        delete ledSalon;
+    }
+    
+    if (lightSensor1) {
+        delete lightSensor1;
+    }
+    
+    if (ultrasonic1) {
+        delete ultrasonic1;
+    }
 }  
 
 void Application::init(void)
@@ -198,18 +215,72 @@ void Application::init(void)
 
 
 
-  led1->init();
   buzzer1->init();
   lcd1->init();
   button1->init();
   touchSensor1->init();
   lightSensor1->init();
   soundSensor1->init();
+
+
+  try {
+    // Init LED
+    ledSalon = new Led(PIN_LED, "LED Salon");
+    ledSalon->init();
+    ledSalon->turnOff();
+        
+    // Init capteur ultrason pour présence
+    ultrasonic1 = new UltrasonicSensor(PIN_TRIG, PIN_ECHO, "Ultrasonic Sensor");
+    ultrasonic1->init();
+        
+    // Initialisation du LightController
+    lightController = new LightController(ultrasonic1, lightSensor1, ledSalon);
+    lightController->init();
+    
+    // Configurer les paramètres
+    lightController->setDetectionDistance(100.0);  // 1 mètre
+    lightController->setLightThreshold(350);       // Seuil de luminosité
+
+    } catch (LightControllerException& e) {
+      Serial.print("Erreur LightController: ");
+      Serial.println(e.what());
+    }
 }
+
 
 
 void Application::run(void)
 {
   led1->blink(500, 3);
 
+  unsigned long currentTime = millis();
+
+  try {
+    // Mettre à jour le LightController
+    if (lightController) {
+      bool lightState = lightController->update();
+    }
+
+    // Touch sensor pour changer le mode du light controller
+    if (touchSensor1->isTouched){
+      lightController->toggleMode();
+    }
+    // Si on appuie sur le bouton, et qu'on est en mode manuel, la led s'allume
+    if (button1->isPressed && !lightController->isAutoMode()){
+      lightController->turnOn();
+    }
+
+    static unsigned long lastStatsTime = 0;
+    
+    if (currentTime - lastStatsTime > 30000) {
+      if (lightController) {
+        LightController->printStats();
+      }
+      lastStatsTime = currentTime;
+    }       
+    } catch (LightControllerException& e) {
+      Serial.print("Erreur LightController dans run(): ");
+      Serial.println(e.what());
+    }
+        
 }

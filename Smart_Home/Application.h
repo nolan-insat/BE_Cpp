@@ -57,5 +57,11 @@ class Application
       LightSensor* lightSensor1;
       SoundSensor* soundSensor1;
 
+      // Périphériques pour LightController
+      Led* ledSalon;
+      LightSensor* lightSensor1;
+      UltrasonicSensor* ultrasonic1;
+      LightController* lightController;
+
 };
 #endif
