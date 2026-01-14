@@ -23,13 +23,13 @@
 
 
 
-/*
 
-#include <SoftwareSerial.h>
+
+#include <HardwareSerial.h>
 
 #include <Wire.h>
 #include <rgb_lcd.h>
-*/
+
 #include <ESP8266WiFi.h>
 
 #include <ESP8266WebServer.h>
@@ -51,25 +51,27 @@
 #define TOUCH_PIN D7
 #define LIGHT_SENSOR_PIN A0
 #define SOUND_SENSOR_PIN A0
-#define ULTRASONIC_TRIGGER_PIN D2
-#define ULTRASONIC_ECHO_PIN D3
+#define ULTRASONIC_PIN D3
 
 
 Application::Application()
 {
   Serial.begin(9600);
+  Serial.println("=== DEMARRAGE SYSTEME ===");
 
-  ESP8266WebServer server(80);
+  server = new ESP8266WebServer(80);
 
-  Led led1(LED_PIN, "LED System");
-  Buzzer buzzer1(BUZZER_PIN, "Buzzer System");
-  Lcd lcd1(LCD_PIN, "LCD Display");
-  Button button1(BUTTON_PIN, "Bouton");
-  TouchSensor touchSensor1(TOUCH_PIN, "Touch Sensor");
-  LightSensor lightSensor1(LIGHT_SENSOR_PIN, "Light Sensor");
-  SoundSensor soundSensor1(SOUND_SENSOR_PIN, "Sound Sensor");
-  Alarm alarm1;
+  led1 = new Led(LED_PIN, "LED System");
+  buzzer1 = new Buzzer(BUZZER_PIN, "Buzzer System");
+  lcd1 = new Lcd(LCD_PIN, "LCD Display");
+  button1 = new Button(BUTTON_PIN, "Bouton");
+  touchSensor1 = new TouchSensor(TOUCH_PIN, "Touch Sensor");
+  lightSensor1 = new LightSensor(LIGHT_SENSOR_PIN, "Light Sensor");
+  soundSensor1 = new SoundSensor(SOUND_SENSOR_PIN, "Sound Sensor");
+  ultrasonicSensor1 = new UltrasonicSensor(ULTRASONIC_PIN, "Ultrasonic Sensor");
+  wifi1 = new Wifi(0, "Wifi1");
 
+  alarm1 = new Alarm();
 
 }
   
@@ -213,29 +215,44 @@ void Application::init(void)
 
 
   led1->init();
+  led1->blink(200, 2);
   buzzer1->init();
+  buzzer1->playBeep();
   lcd1->init();
+  lcd1->setColor(100, 100, 100);
+  delay(1000);
+  lcd1->clear();
+  Serial.println("Initialisation des capteurs...");
+
   button1->init();
+  Serial.println("Bouton OK");
   touchSensor1->init();
+  Serial.println("Touch Sensor OK");
   lightSensor1->init();
+  Serial.println("Light Sensor OK");
   soundSensor1->init();
-  ultrasonicsensor1->init();
+  Serial.println("Sound Sensor OK");
+  ultrasonicSensor1->init();
+  Serial.println("Ultrasonic Sensor OK");
 
   wifi1->connecter("moi", "Nolan31*");
 
+  Serial.println("WiFi connected");
+
   lcd1->printMessage("IP:");
   lcd1->printMessage(wifi1->getIP());
-  delay(2000);
-  lcd1->clear();
+  Serial.println("Capteurs initialises.");
+  delay(500);
+
 
   server->on("/ON", [&](){
-        alarm1->arm();
-        server->send(200, "text/plain", "OK");
+        alarm1->arm(buzzer1);
+        server->send(200, "text/plain", "Alarm armed");
     });
 
     server->on("/OFF", [&](){
-        alarm1->disarm();
-        server->send(200, "text/plain", "OK");
+        alarm1->disarm(buzzer1);
+        server->send(200, "text/plain", "Alarm disarmed");
     });
 
     server->begin();
@@ -248,6 +265,6 @@ void Application::run(void)
 
   server->handleClient();
 
-  alarm1->trigger(buzzer1, ultrasonicsensor1);
+  alarm1->trigger(buzzer1, ultrasonicSensor1);
 
 }

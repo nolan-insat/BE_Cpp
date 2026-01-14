@@ -61,7 +61,7 @@ class Application
       LightSensor* lightSensor1;
       SoundSensor* soundSensor1;
       Alarm* alarm1;
-      UltrasonicSensor* ultrasonicsensor1;
+      UltrasonicSensor* ultrasonicSensor1;
       ESP8266WebServer* server;
 
 };

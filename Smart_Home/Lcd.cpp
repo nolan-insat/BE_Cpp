@@ -23,9 +23,10 @@ void Lcd::init() {
     // Initialisation de l'ecran LCD
     Wire.begin(D2, D1);
     delay(100);
-    this->lcd.begin(16, 2); // ecran 16x2
+    lcd.begin(16, 2); // ecran 16x2
+    lcd.setCursor(0, 0);
     this->activate();
-    this->lcd.clear();
+    lcd.clear();
 }
 
 void Lcd::activate() {
@@ -38,18 +39,18 @@ void Lcd::deactivate() {
 
 void Lcd::clear() {
     if (this->isActive) {
-        this->clear();
+        lcd.clear();
     }
 }
 
 void Lcd::printMessage(const String& message) {
     if (this->isActive) {
-        this->lcd.print(message.c_str());
+        lcd.print(message.c_str());
     }
 }
 
 void Lcd::setColor(int r, int g, int b) {
     if (this->isActive) {
-        this->lcd.setRGB(r, g, b);
+        lcd.setRGB(r, g, b);
     }
 }

@@ -11,8 +11,8 @@ private:
 public:
     Alarm();
     ~Alarm();
-    void arm();
-    void disarm();
+    void arm(Buzzer* buzzer);
+    void disarm(Buzzer* buzzer);
     bool isArmed() const;
     void trigger(Buzzer* buzzer, UltrasonicSensor* ultrasonicSensor);
     unsigned long getTriggerTime() const;
