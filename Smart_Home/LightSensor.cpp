@@ -7,7 +7,7 @@ LightSensor::LightSensor(int pin, String name) : Sensor(pin, name), darkThreshol
 
 void LightSensor::init() {
     pinMode(this->pin, INPUT);
-    this->isActive = true;
+    activate();
 }
 
 int LightSensor::getLightLevel() {

@@ -12,12 +12,11 @@ void Button::init() {
 
 bool Button::isPressed() {
     if (!this->isActive) return false;
-    
     // Avec pull-up : LOW = press�
-    return digitalRead(this->pin) == LOW;
+    return !digitalRead(this->pin);
 }
 
-/*
+
 bool Button::wasPressed() {
     if (!this->isActive) return false;
     
@@ -51,4 +50,4 @@ bool Button::wasReleased() {
     
     lastState = currentPressed;
     return false;
-}*/
+}

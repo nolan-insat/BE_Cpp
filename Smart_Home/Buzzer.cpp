@@ -28,7 +28,6 @@ void Buzzer::setTone(int freq, int time){
 
 void Buzzer::playBeep(){
     tone(this->pin, 1000, 200);
-    delay(600);
 }
 
 void Buzzer::playMelody(int melody[], int size){

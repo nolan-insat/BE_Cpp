@@ -9,10 +9,10 @@
 class Alarm {
 private:
     bool armed;
-    unsigned long triggerTime;
     Buzzer* buzzer;
     UltrasonicSensor* ultrasonicSensor;
     Lcd* lcd;
+    float thresholdDistance = 10.0;
 public:
     Alarm();
     ~Alarm();

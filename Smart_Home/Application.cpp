@@ -51,6 +51,8 @@
 #define ULTRASONIC_PIN D3
 
 
+
+
 Application::Application()
 {
   Serial.begin(9600);
@@ -67,9 +69,6 @@ Application::Application()
   soundSensor1 = new SoundSensor(SOUND_SENSOR_PIN, "Sound Sensor");
   ultrasonicSensor1 = new UltrasonicSensor(ULTRASONIC_PIN, "Ultrasonic Sensor");
   wifi1 = new Wifi(0, "Wifi1");
-
-  // lightController = new LightController(ultrasonicSensor1, lightSensor1, ledSalon);
-
 
   alarm1 = new Alarm();
 
@@ -98,181 +97,108 @@ Application::~Application()
 
 void Application::init(void)
 {
-  /*
-  led1 = new Led(D5, "Led1");
-  led1->init();
- 
-  buzzer1 = new Buzzer(D8, "Buzzer1");
   buzzer1->init();
-
-  int melody[] = {DO, MI, SOL, DO_AIGU, DO_AIGU, SOL, MI, DO};
-  buzzer1->playBeep();
-  
-  buzzer1->playMelody(melody, 8);
-  buzzer1->playMelody(melody, 8);
-  buzzer1->playMelody(melody, 8);
-  
-  lcd1 = new Lcd(D1, "Lcd1");
-  lcd1->init();
-
-  lcd1->printMessage("Smart Home Init");
-  delay(2000);
-  lcd1->clear();
-  
-
-  lcd1->printMessage("Init Complete");
-  delay(2000);
-  lcd1->clear();
-
-
-  // WiFi = new Wifi(D1, "Wifi1");
-  WiFi.begin("moi", "Nolan31*");
-
-
-  lcd1->printMessage("Connexion");
-  while ((WiFi.status() != WL_CONNECTED)) {
-    delay(500);
-    lcd1->printMessage(".");
-  }
-  lcd1->clear();
-
-
-  lcd1->printMessage("\nConnecte!");
-  delay(2000);
-  lcd1->clear();
-
-  lcd1->printMessage("WiFi OK");
-  delay(2000);
-  lcd1->clear();
-  WiFi.disconnect();
-
-  lcd1->printMessage("WiFi deconnecte");
-  delay(100);
-  */
-  
-  // Serial.println("=== INITIALISATION SYSTEME ===");
-  /*
-  // 1. LED (Actionneur)
-  led1 = new Led(LED_PIN, "LED System");
-  led1->init();
-  led1->activate();
-  
-  // 2. Buzzer (Actionneur)
-  buzzer1 = new Buzzer(BUZZER_PIN, "Buzzer System");
-  buzzer1->init();
-  buzzer1->playBeep();
-  
-  // 3. LCD (Actionneur)
-  lcd1 = new Lcd(LCD_PIN, "LCD Display");
-  
-  lcd1->init();
-  lcd1->setColor(0, 100, 0); // Vert
-  lcd1->printMessage("Systeme OK");
-  delay(1000);
-  lcd1->printMessage("Initialisation...");
-  delay(1000);
-
-  
-  // 4. Capteurs
-  // Bouton poussoir
-  lcd1->clear();
-  button1 = new Button(BUTTON_PIN, "Bouton");
-  lcd1->printMessage("Init Bouton");
-  button1->init();
-  lcd1->printMessage("Bouton OK\n");
-  delay(500);
-  
-  // Capteur tactile
-  lcd1->clear();
-  touchSensor1 = new TouchSensor(TOUCH_PIN, "Touch Sensor");
-  lcd1->printMessage("Init Touch Sensor");
-  touchSensor1->init();
-  lcd1->printMessage("Touch Sensor OK");
-  delay(500);
-  
-  // Capteur lumi�re
-  lcd1->clear();
-  lightSensor1 = new LightSensor(LIGHT_SENSOR_PIN, "Light Sensor");
-  lcd1->printMessage("Init Light Sensor");
-  lightSensor1->init();
-  lightSensor1->setDarkThreshold(300);
-  lcd1->printMessage("Light Sensor OK\n");
-  delay(500);
-  
-  // Capteur sonore
-  soundSensor1 = new SoundSensor(SOUND_SENSOR_PIN, "Sound Sensor");
-  soundSensor1->init();
-  soundSensor1->setThreshold(600);
-  
-  // Affichage de confirmation
-  lcd1->clear();
-  lcd1->printMessage("Initialisation");
-  lcd1->setColor(0, 0, 100); // Bleu
-  
-  // S�quence sonore et lumineuse de d�marrage
-  led1->blink(200, 3);
-  
-  int melody[] = {523, 659, 784, 1047}; // Do, Mi, Sol, Do aigu
-  buzzer1->playMelody(melody, 4);
-  
-  // Affichage final
-  lcd1->clear();
-  lcd1->printMessage("Pret!");
-  lcd1->setColor(0, 100, 0); // Vert
-  
-  Serial.println("Systeme pret!");
-  Serial.println("=== MODES DISPONIBLES ===");
-  Serial.println("1. Appui bouton: Mode demonstration");
-  Serial.println("2. Touch sensor: Mode surveillance");
-  Serial.println("3. Systeme automatique");
-  */
-
-
-
-  // led1->init();
-  // led1->blink(200, 2);
-  buzzer1->init();
-  buzzer1->playBeep();
   lcd1->init();
   lcd1->setColor(100, 100, 100);
-  delay(1000);
   lcd1->clear();
   Serial.println("Initialisation des capteurs...");
 
   button1->init();
-  Serial.println("Bouton OK");
   touchSensor1->init();
-  Serial.println("Touch Sensor OK");
   lightSensor1->init();
-  Serial.println("Light Sensor OK");
   soundSensor1->init();
-  Serial.println("Sound Sensor OK");
   ultrasonicSensor1->init();
-  Serial.println("Ultrasonic Sensor OK");
 
-  wifi1->connecter("moi", "Nolan31*");
+  wifi1->connecter("MONPC", "HelloHello");
+  delay(1000);
 
   Serial.println("WiFi connected");
 
   lcd1->printMessage("IP:");
-  lcd1->printMessage(wifi1->getIP());
-  Serial.println("Capteurs initialises.");
   delay(500);
+  lcd1->clear();
+  lcd1->printMessage(wifi1->getIP());
+
 
   alarm1->init(buzzer1, ultrasonicSensor1, lcd1);
 
+  server->on("/", [&](){
+    String html = "<html><body>"  ;
+    html += "<p>Hugo et Nolan - INSA Toulouse</p>";
+    html += "<h1>SMART HOME</h1>";
 
-  server->on("/ON", [&](){
-        alarm1->arm();
-        server->send(200, "text/plain", "Alarm armed");
-    });
+    // ALARM CONTROLS
+    html += "<h2>Alarm</h2>";
+    html += "<a href='/alarm?state=on'><button>ARM</button></a>";
+    html += "<a href='/alarm?state=off'><button>DISARM</button></a>";
+    html += "<p>Current alarm state: ";
+    html += (alarm1->isArmed() ? "ARMED" : "DISARMED");
+    html += "</p>";
 
-    server->on("/OFF", [&](){
-        alarm1->disarm();
-        server->send(200, "text/plain", "Alarm disarmed");
-    });
+    // LIGHT MODE
+    html += "<h2>Light Mode</h2>";
+    html += "<a href='/light?mode=auto'><button>AUTO</button></a>";
+    html += "<a href='/light?mode=manual'><button>MANUAL</button></a>";
+    html += "<p>Current light mode: ";
+    html += (lightController->isAutoMode() ? "AUTO" : "MANUAL");
+    html += "</p>";
 
-    server->begin();
+    // PARAM FORM
+    html += "<h2>Parameters</h2>";
+    html += "<form action='/setParams' method='GET'>";
+
+    // Pré-remplir les champs avec les valeurs actuelles
+    html += "Detection distance (cm): <input name='dist' type='number' value='";
+    html += String(lightController->getDetectionDistance());
+    html += "'><br>";
+
+    html += "Light threshold: <input name='lux' type='number' value='";
+    html += String(lightController->getLightThreshold());
+    html += "'><br>";
+
+    html += "<input type='submit' value='Apply'>";
+    html += "</form>";
+
+    html += "</body></html>";
+
+    server->send(200, "text/html", html);
+  });
+
+  // ALARM CONTROL ENDPOINT
+  server->on("/alarm", [&](){
+    if (server->hasArg("state")) {
+        if (server->arg("state") == "on") alarm1->arm();
+        if (server->arg("state") == "off") alarm1->disarm();
+    }
+    server->sendHeader("Location", "/");
+    server->send(303);
+  });
+
+  // LIGHT MODE ENDPOINT
+  server->on("/light", [&](){
+    if (server->hasArg("mode")) {
+        if (server->arg("mode") == "auto") lightController->setAutoMode(true);
+        if (server->arg("mode") == "manual") lightController->setAutoMode(false);
+    }
+    server->sendHeader("Location", "/");
+    server->send(303);
+  });
+
+  // PARAM SETTER
+  server->on("/setParams", [&](){
+    if (server->hasArg("dist")) {
+        float d = server->arg("dist").toFloat();
+        lightController->setDetectionDistance(d);
+    }
+    if (server->hasArg("lux")) {
+        int l = server->arg("lux").toInt();
+        lightController->setLightThreshold(l);
+    }
+    server->sendHeader("Location", "/");
+    server->send(303);
+  });
+
+  server->begin();
 
 
   try {
@@ -286,7 +212,7 @@ void Application::init(void)
     lightController->init();
 
     // Configurer les paramètres
-    lightController->setDetectionDistance(100.0);  // 1 mètre
+    lightController->setDetectionDistance(10.0);  // 10 cm
     lightController->setLightThreshold(350);       // Seuil de luminosité
 
     } catch (LightControllerException& e) {
@@ -299,8 +225,6 @@ void Application::init(void)
 
 void Application::run(void)
 {
-  ledSalon->blink(500, 3);
-
   unsigned long currentTime = millis();
 
   try {
@@ -314,13 +238,15 @@ void Application::run(void)
       lightController->toggleMode();
     }
     // Si on appuie sur le bouton, et qu'on est en mode manuel, la led s'allume
-    if (button1->isPressed() && !lightController->isAutoMode()){
-      lightController->turnOn();
+    if (!lightController->isAutoMode()){
+      if (button1->isPressed()) {
+        lightController->toggleLight();
+      }
     }
 
     static unsigned long lastStatsTime = 0;
     
-    if (currentTime - lastStatsTime > 30000) {
+    if (currentTime - lastStatsTime > 10000) {
       if (lightController) {
         lightController->printStats();
       }
@@ -330,9 +256,14 @@ void Application::run(void)
       Serial.print("Erreur LightController dans run(): ");
       Serial.println(e.what());
     }
-        
+  
   server->handleClient();
 
   alarm1->trigger();
+  Serial.println(String(ultrasonicSensor1->readDistance()));
+  Serial.println(ultrasonicSensor1->isObjectDetected(10.0));
+  Serial.println(alarm1->isArmed());
+
 
 }
+

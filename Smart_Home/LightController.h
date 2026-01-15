@@ -54,9 +54,13 @@ public:
     
     // D�finit la distance de d�tection
     void setDetectionDistance(float distance);
+
+    float getDetectionDistance();
     
     // D�finit le seuil de luminosit� pour allumer
     void setLightThreshold(int threshold);
+
+    int getLightThreshold();
     
     // Active/d�sactive le contr�le automatique
     void setAutoMode(bool enabled);
@@ -68,6 +72,8 @@ public:
     
     // Extinction manuelle
     void turnOff();
+
+    void toggleLight();
     
     // Affiche les statistiques
     void printStats() const;
