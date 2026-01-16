@@ -177,7 +177,7 @@ void LightController::printStats() const {
     Serial.print("Etat actuel : ");
     Serial.println(lightState ? "ALLUMEE" : "ETEINTE");
     Serial.print("Mode : ");
-    Serial.println(autoMode ? "AUTOMATIQUE" : "MANUEL");
+    Serial.println(isAutoMode ? "AUTOMATIQUE" : "MANUEL");
     Serial.print("Distance configuree : ");
     Serial.print(detectionDistance);
     Serial.println(" cm");

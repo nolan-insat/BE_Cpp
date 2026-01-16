@@ -13,7 +13,7 @@ void Button::init() {
 bool Button::isPressed() {
     if (!this->isActive) return false;
     // Avec pull-up : LOW = press�
-    return !digitalRead(this->pin);
+    return (digitalRead(this->pin) == LOW);
 }
 
 

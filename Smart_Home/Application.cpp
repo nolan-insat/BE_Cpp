@@ -108,8 +108,8 @@ void Application::init(void)
   lightSensor1->init();
   soundSensor1->init();
   ultrasonicSensor1->init();
-
-  wifi1->connecter("MONPC", "HelloHello");
+  Serial.println("Capteurs initialises.");
+  wifi1->connecter("moi", "Nolan31*");
   delay(1000);
 
   Serial.println("WiFi connected");
@@ -260,10 +260,6 @@ void Application::run(void)
   server->handleClient();
 
   alarm1->trigger();
-  Serial.println(String(ultrasonicSensor1->readDistance()));
-  Serial.println(ultrasonicSensor1->isObjectDetected(10.0));
-  Serial.println(alarm1->isArmed());
-
 
 }
 
